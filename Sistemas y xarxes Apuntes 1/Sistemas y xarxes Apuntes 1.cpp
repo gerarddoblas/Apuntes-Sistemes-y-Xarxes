@@ -5,5 +5,5 @@
 
 int main()
 {
-    Example01();
+    ThreadTutorialTest();
 }
