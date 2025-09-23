@@ -29,5 +29,8 @@
     <ClInclude Include="Utils\ConsoleControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="2InputSystem\InputConsts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

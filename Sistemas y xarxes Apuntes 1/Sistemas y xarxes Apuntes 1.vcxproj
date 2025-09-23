@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="1TutorialThreads\ThreadTutorial.h" />
     <ClInclude Include="Utils\ConsoleControl.h" />
+    <ClInclude Include="2InputSystem\InputConsts.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
