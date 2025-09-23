@@ -53,7 +53,7 @@ void ConsoleControl::ClearKeyBuffer()
 {
 	while (_kbhit())
 	{
-		-getch();
+		_getch();
 	}
 }
 
