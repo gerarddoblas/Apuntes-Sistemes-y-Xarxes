@@ -1,6 +1,7 @@
 #include <iostream>
 //#include "1TutorialThreads/ThreadTutorial.h"
 #include "Utils/ConsoleControl.h"
+#include "2InputSystem/InputSystem.h"
 #include <functional>
 #include <string>
 #include <list>
@@ -38,6 +39,7 @@ void Test3(listaDeListasDeInts listaDeListas)
 
 int main()
 {
+    /*
     //ThreadTutorialTest();
     //CC::SetColor(CC::WHITE, CC::CYAN);
 
@@ -52,4 +54,50 @@ int main()
         };
 
     TestLambdasMolonas(funcionQueHaceCosasPeroEsUnaVariable);
+    */
+
+    InputSystem* iS = new InputSystem();
+
+    InputSystem::KeyBinding* kb1 = iS->AddListener(K_1, []()
+        {
+            CC::Lock();
+            std::cout << "Pessed 1" << std::endl;
+            CC::UnLock();
+        });
+
+    InputSystem::KeyBinding* kb2 = iS->AddListener(K_2, []()
+        {
+            CC::Lock();
+            std::cout << "Pessed 2" << std::endl;
+            CC::UnLock();
+        });
+
+    InputSystem::KeyBinding* kb3 = iS->AddListener(K_3, []()
+        {
+            CC::Lock();
+            std::cout << "Pessed 3" << std::endl;
+            CC::UnLock();
+        });
+
+    InputSystem::KeyBinding* kb4 = iS->AddListener(K_4, []()
+        {
+            CC::Lock();
+            std::cout << "Pessed 4" << std::endl;
+            CC::UnLock();
+        });
+
+    InputSystem::KeyBinding* kb5 = iS->AddListener(K_5, []()
+        {
+            CC::Lock();
+            std::cout << "Pessed 5" << std::endl;
+            CC::UnLock();
+        });
+
+
+    iS->StartListen();
+
+    while (true)
+    {
+
+    }
 }

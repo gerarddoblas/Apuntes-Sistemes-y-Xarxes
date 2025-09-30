@@ -123,11 +123,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="2InputSystem\InputSystem.cpp" />
     <ClCompile Include="Utils\ConsoleControl.cpp" />
     <ClCompile Include="Sistemas y xarxes Apuntes 1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1TutorialThreads\ThreadTutorial.h" />
+    <ClInclude Include="2InputSystem\InputSystem.h" />
     <ClInclude Include="Utils\ConsoleControl.h" />
     <ClInclude Include="2InputSystem\InputConsts.h" />
   </ItemGroup>
