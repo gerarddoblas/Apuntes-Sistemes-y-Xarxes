@@ -1,43 +1,36 @@
 #include "ConsoleControl.h"
+#include <conio.h>
 
-ConsoleControl ConsoleControl::GetInstance()
-{
-	static ConsoleControl instance;
-
-	return instance;
-}
-
-HANDLE ConsoleControl::GetConsole()
+HANDLE ConsoleControl::GetConsole() 
 {
 	return GetInstance()._console;
 }
 
-void ConsoleControl::SetColor(ConsoleColor textColor, ConsoleColor backgroundColor)
+void ConsoleControl::SetColor(ConsoleColor TextColor, ConsoleColor BackgroundColor)
 {
-	WORD color = (backgroundColor << 4) | textColor;
+	WORD color = (BackgroundColor << 4) | TextColor;
 	SetConsoleTextAttribute(GetConsole(), color);
 }
 
 void ConsoleControl::SetPosition(short int x, short int y)
 {
-	COORD pos{ x, y };
+	COORD pos = { x, y };
 	SetConsoleCursorPosition(GetConsole(), pos);
 }
 
 void ConsoleControl::Clear()
 {
-	std::cout << "\033[2j\033[1;1H";
-	//FillWithCharacter(' ', WHITE, BLACK);
+	std::cout << "\033[2J\033[1;1H";//Clear the console and move the cursor to the top left corner
+	//ClearCharacter(' ', WHITE, BLACK);//Another less optimal way to clean
 }
 
-void ConsoleControl::FillWithCharacter(char character, ConsoleColor textColor, ConsoleColor backgroundColor)
+void ConsoleControl::FillWithCharacter(char character, ConsoleColor TextColor, ConsoleColor BackgroundColor)
 {
-	COORD topLeft = { 0,0 };
+	COORD topLeft = { 0, 0 };
 	CONSOLE_SCREEN_BUFFER_INFO screen;
 	DWORD written;
 	HANDLE console = GetConsole();
-
-	WORD color = (backgroundColor << 4) | textColor;
+	WORD color = (BackgroundColor << 4) | TextColor;
 	GetConsoleScreenBufferInfo(console, &screen);
 	FillConsoleOutputCharacterA(
 		console, character, screen.dwSize.X * screen.dwSize.Y, topLeft, &written
@@ -51,8 +44,7 @@ void ConsoleControl::FillWithCharacter(char character, ConsoleColor textColor, C
 
 void ConsoleControl::ClearKeyBuffer()
 {
-	while (_kbhit())
-	{
+	while (_kbhit()) {
 		_getch();
 	}
 }
@@ -65,17 +57,15 @@ int ConsoleControl::ReadNextKey()
 	{
 		KB_code = _getch();
 	}
-
 	return KB_code;
 }
 
-int ConsoleControl::WaitForReadNextKey()
+int ConsoleControl::WaithForReadNextKey()
 {
 	int KB_code = 0;
 
 	while (KB_code == 0)
 	{
-
 		if (_kbhit())
 		{
 			KB_code = _getch();
@@ -87,11 +77,10 @@ int ConsoleControl::WaitForReadNextKey()
 
 char ConsoleControl::WaitForReadNextChar()
 {
-	int c = 0;
+	char c = 0;
 
 	while (c == 0)
 	{
-
 		if (_kbhit())
 		{
 			c = _getch();
@@ -101,24 +90,18 @@ char ConsoleControl::WaitForReadNextChar()
 	return c;
 }
 
+ConsoleControl ConsoleControl::GetInstance() {
+	static ConsoleControl instance;
+
+	return instance;
+}
+
 void ConsoleControl::Lock()
 {
 	GetInstance()._consoleMutex->lock();
 }
 
-void ConsoleControl::UnLock()
+void ConsoleControl::Unlock()
 {
 	GetInstance()._consoleMutex->unlock();
 }
-
-//Una alternativa de el Lock() y el unlock()
-/*
-void ConsoleControl::EjecuteSafeConsole(std::function safeCode)
-{
-	GetInstance()._consoleMutex->lock();
-
-	safeCode.invoke();
-
-	GetInstance()._consoleMutex->unlock();
-}
-*/

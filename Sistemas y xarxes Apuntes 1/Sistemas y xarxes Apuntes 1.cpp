@@ -1,11 +1,12 @@
 #include <iostream>
 //#include "1TutorialThreads/ThreadTutorial.h"
 #include "Utils/ConsoleControl.h"
+#include "Utils/Timer.h"
 #include "2InputSystem/InputSystem.h"
 #include <functional>
 #include <string>
 #include <list>
-
+/*
 typedef std::function<int(int, int)> SumaFunction;
 //En la linea siguiente se le pone un nombre a la lista de listas de ints, para que se mas legible
 //typedef std::list<std::list<int>> listaDeListasDeInts;
@@ -18,6 +19,7 @@ void TestLambdasMolonas(std::function<int(int, int)> funcionMolona)
 
     std::cout << "Ya la he ejecutado" << std::endl;
 }
+*/
 
 //Las siguientes funciones muestran una forma de optimizar la visualizacion del codigo
 /*
@@ -39,6 +41,25 @@ void Test3(listaDeListasDeInts listaDeListas)
 
 int main()
 {
+    std::cout << "Start" << std::endl;
+  /*  Timer::StartTimer(3000, []() {
+        CC::Lock();
+        std::cout << "3 Seconds Elapsed" << std::endl;
+        CC::UnLock();
+        });
+    std::cout << "End" << std::endl;
+    */
+    int times;
+    int maxTimes = 5;
+    Timer::StartLoopTimer(1000, [&times, maxTimes]() {
+        CC::Lock();
+        std::cout << "1 Seconds Elapsed" << std::endl;
+        CC::Unlock();
+        times++;
+        return times < maxTimes;
+        });
+    std::cout << "End" << std::endl;
+
     /*
     //ThreadTutorialTest();
     //CC::SetColor(CC::WHITE, CC::CYAN);
@@ -55,7 +76,7 @@ int main()
 
     TestLambdasMolonas(funcionQueHaceCosasPeroEsUnaVariable);
     */
-
+    /*
     InputSystem* iS = new InputSystem();
 
     InputSystem::KeyBinding* kb1 = iS->AddListener(K_1, []()
@@ -95,6 +116,7 @@ int main()
 
 
     iS->StartListen();
+    */
 
     while (true)
     {
