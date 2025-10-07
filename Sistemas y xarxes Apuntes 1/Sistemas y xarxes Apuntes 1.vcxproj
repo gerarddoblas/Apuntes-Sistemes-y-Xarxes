@@ -125,6 +125,8 @@
   <ItemGroup>
     <ClCompile Include="2InputSystem\InputSystem.cpp" />
     <ClCompile Include="3NodeMap\INodeContent.cpp" />
+    <ClCompile Include="3NodeMap\Node.cpp" />
+    <ClCompile Include="3NodeMap\NodeMap.cpp" />
     <ClCompile Include="Utils\Timer.cpp" />
     <ClCompile Include="Utils\ConsoleControl.cpp" />
     <ClCompile Include="Sistemas y xarxes Apuntes 1.cpp" />
@@ -134,6 +136,8 @@
     <ClInclude Include="1TutorialThreads\ThreadTutorial.h" />
     <ClInclude Include="2InputSystem\InputSystem.h" />
     <ClInclude Include="3NodeMap\INodeContent.h" />
+    <ClInclude Include="3NodeMap\Node.h" />
+    <ClInclude Include="3NodeMap\NodeMap.h" />
     <ClInclude Include="Utils\Timer.h" />
     <ClInclude Include="Utils\ConsoleControl.h" />
     <ClInclude Include="2InputSystem\InputConsts.h" />

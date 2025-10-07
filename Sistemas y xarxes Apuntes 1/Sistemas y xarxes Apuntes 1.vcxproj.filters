@@ -33,6 +33,12 @@
     <ClCompile Include="3NodeMap\INodeContent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="3NodeMap\Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="3NodeMap\NodeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="1TutorialThreads\ThreadTutorial.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="3NodeMap\INodeContent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3NodeMap\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3NodeMap\NodeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,123 +1,99 @@
 #include <iostream>
-//#include "1TutorialThreads/ThreadTutorial.h"
 #include "Utils/ConsoleControl.h"
-#include "Utils/Timer.h"
+#include "3NodeMap/NodeMap.h"
 #include "2InputSystem/InputSystem.h"
-#include <functional>
-#include <string>
-#include <list>
-/*
-typedef std::function<int(int, int)> SumaFunction;
-//En la linea siguiente se le pone un nombre a la lista de listas de ints, para que se mas legible
-//typedef std::list<std::list<int>> listaDeListasDeInts;
 
-void TestLambdasMolonas(std::function<int(int, int)> funcionMolona)
+
+class Tree : public INodeContent
 {
-    std::cout << "Voy a ejecutar una funcion que estaba en una variable" << std::endl;
+    void Draw(Vector2 offset) override
+    {
+        CC::Lock();
+        CC::SetColor(CC::DARKGREEN, CC::BLACK);
+        CC::SetPosition(offset.X, offset.Y);
+        std::cout << "T";
+        CC::Unlock();
+    }
+};
 
-    int number = funcionMolona(5,7);
-
-    std::cout << "Ya la he ejecutado" << std::endl;
-}
-*/
-
-//Las siguientes funciones muestran una forma de optimizar la visualizacion del codigo
-/*
-void Test1(listaDeListasDeInts listaDeListas)
-{
-    
-}
-
-void Test2(listaDeListasDeInts listaDeListas)
+class Potatoe
 {
 
-}
-
-void Test3(listaDeListasDeInts listaDeListas)
-{
-
-}
-*/
-
+};
 int main()
 {
-    std::cout << "Start" << std::endl;
-  /*  Timer::StartTimer(3000, []() {
-        CC::Lock();
-        std::cout << "3 Seconds Elapsed" << std::endl;
-        CC::UnLock();
-        });
-    std::cout << "End" << std::endl;
-    */
-    int times;
-    int maxTimes = 5;
-    Timer::StartLoopTimer(1000, [&times, maxTimes]() {
-        CC::Lock();
-        std::cout << "1 Seconds Elapsed" << std::endl;
-        CC::Unlock();
-        times++;
-        return times < maxTimes;
-        });
-    std::cout << "End" << std::endl;
-
     /*
-    //ThreadTutorialTest();
-    //CC::SetColor(CC::WHITE, CC::CYAN);
+    Node* node = new Node(Vector2(0, 0));
 
-    std::string name = "Tagopi";
+    Tree* tree = new Tree();
+    Potatoe* potaote = new Potatoe();
 
-    //std::list<std::list<int>> listaDeListas;
+    node->SetContent(tree);
 
-    std::function<int(int, int)> funcionQueHaceCosasPeroEsUnaVariable = [name](int a, int b)
-        {
-            std::cout << "Esto no se como pero funciona y me dice mi nombre --> " << name << std::endl;
-            return a + b;
-        };
-
-    TestLambdasMolonas(funcionQueHaceCosasPeroEsUnaVariable);
-    */
-    /*
-    InputSystem* iS = new InputSystem();
-
-    InputSystem::KeyBinding* kb1 = iS->AddListener(K_1, []()
-        {
-            CC::Lock();
-            std::cout << "Pessed 1" << std::endl;
-            CC::UnLock();
-        });
-
-    InputSystem::KeyBinding* kb2 = iS->AddListener(K_2, []()
-        {
-            CC::Lock();
-            std::cout << "Pessed 2" << std::endl;
-            CC::UnLock();
-        });
-
-    InputSystem::KeyBinding* kb3 = iS->AddListener(K_3, []()
-        {
-            CC::Lock();
-            std::cout << "Pessed 3" << std::endl;
-            CC::UnLock();
-        });
-
-    InputSystem::KeyBinding* kb4 = iS->AddListener(K_4, []()
-        {
-            CC::Lock();
-            std::cout << "Pessed 4" << std::endl;
-            CC::UnLock();
-        });
-
-    InputSystem::KeyBinding* kb5 = iS->AddListener(K_5, []()
-        {
-            CC::Lock();
-            std::cout << "Pessed 5" << std::endl;
-            CC::UnLock();
-        });
-
-
-    iS->StartListen();
+    Tree* tree2 = node->GetContent<Tree>();
+    //Potatoe* potatoe2 = node->GetContent < Potatoe>();
     */
 
+        NodeMap * myMap = new NodeMap(Vector2(20, 20), Vector2(2, 2));
+
+        Tree* t1 = new Tree();
+        Tree* t2 = new Tree();
+        Tree* t3 = new Tree();
+        Tree* t4 = new Tree();
+        Tree* t5 = new Tree();
+
+        myMap->SafePickNode(Vector2(0, 0), [t1](Node* node)
+            {
+                node->SetContent(t1);
+            });
+
+        myMap->SafePickNode(Vector2(0, 0), [t2](Node* node)
+            {
+                node->SetContent(t2);
+            });
+
+        myMap->SafePickNode(Vector2(0, 0), [t3](Node* node)
+            {
+                node->SetContent(t3);
+            });
+        myMap->SafePickNode(Vector2(0, 0), [t4](Node* node)
+            {
+                node->SetContent(t4);
+            });
+
+        myMap->SafePickNode(Vector2(0, 0), [t5](Node* node)
+            {
+                node->SetContent(t5);
+            });
+        myMap->UnSafeDraw();
+
+        InputSystem* iS = new InputSystem();
+
+        iS->AddListener(K_UP, [myMap]()
+        {
+            std::list<Vector2> positions;
+            positions.push_back(Vector2(10, 10));
+            positions.push_back(Vector2(10, 9));
+
+            myMap->SafeMultiPickNode(positions, [](std::list<Node*> nodes)
+                {
+
+                    std::list<Node*>::iterator it = nodes.begin();
+                    Node* n1 = *it;
+                    it++;
+                    
+                    Node* n2 = *it;
+                    
+                    n2->SetContent(n1->GetContent()); 
+                    
+                    n1->SetContent(nullptr);
+                    
+                    n1->DrawContent(Vector2(2,2));
+                    n1->DrawContent(Vector2(2,2));
+                });
+        });
+
+        iS->StartListen();
     while (true)
     {
 
