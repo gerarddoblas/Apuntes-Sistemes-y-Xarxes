@@ -1,9 +1,48 @@
 #include <iostream>
+#include <json/json.h>
+#include <fstream>
+
 #include "Utils/ConsoleControl.h"
 #include "3NodeMap/NodeMap.h"
 #include "2InputSystem/InputSystem.h"
 
 
+
+
+class Player//  :Codable --> Serializable + Deserializable
+{
+public:
+
+    int life = 0;
+
+    std::string name = "Test Player";
+    unsigned int coins = 0;
+
+    Player() {}
+    ~Player() {}
+
+    void Decode(Json::Value json)//Des Serializar
+    {
+        life = json["life"].asInt();
+        name = json["name"].asString();
+        coins = json["coins"].asUInt();
+    }
+
+    Json::Value Encode()//Serializar
+    {
+        Json::Value json;
+
+        json["life"] = life;
+        json["name"] = name;
+        json["coins"] = coins;
+
+        return json;
+    }
+};
+
+/// <summary>
+/// ///////////////////////////////////////////////////////////////
+/// </summary>
 class Tree : public INodeContent
 {
     void Draw(Vector2 offset) override
@@ -22,6 +61,25 @@ class Potatoe
 };
 int main()
 {
+    Player* player = new Player();
+    player->coins = 5;
+    player->life = 50;
+    player->name = "Captain Test";
+
+    Json::Value newJson;
+
+    newJson["Player"] = player->Encode();
+
+    //std::ofstream* jsonWriteFile = new std::ofstream("PlayerParseTest.json", std::ifstream::binary)
+
+
+
+
+
+
+
+    /////////////////////////////////////////////////
+
     /*
     Node* node = new Node(Vector2(0, 0));
 
