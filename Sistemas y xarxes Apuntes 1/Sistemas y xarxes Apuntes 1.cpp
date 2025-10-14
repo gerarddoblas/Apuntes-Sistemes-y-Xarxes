@@ -1,10 +1,13 @@
-//#include <iostream>
-//#include <json/json.h>
-//#include <fstream>
-//
-//#include "Utils/ConsoleControl.h"
-//#include "3NodeMap/NodeMap.h"
-//#include "2InputSystem/InputSystem.h"
+#include <iostream>
+#include <json/json.h>
+#include <fstream>
+
+#include "Utils/ConsoleControl.h"
+#include "3NodeMap/NodeMap.h"
+#include "2InputSystem/InputSystem.h"
+#include "4Json/ICodable.h"
+#include "4Json/Banana.h"
+#include "4Json/Apple.h"
 //
 //
 //
@@ -162,5 +165,51 @@
 
 int main()
 {
+	ICodable::SaveDecodeProcces<Banana>();
+	ICodable::SaveDecodeProcces<Banana>();
 
+	std::vector<Fruit*> frutas
+	{
+		new Banana(),
+		new Apple(),
+		new Banana()
+	};
+
+	Json::Value jsonArray = Json::Value(Json::arrayValue);
+
+	for (Fruit* fruit : frutas)
+	{
+		jsonArray.append(fruit->Code());
+	}
+
+	std::ofstream jsonWriterFile = std::ofstream("FrutasTest.json", std::ifstream::binary);
+
+	if (!jsonWriterFile.fail())
+	{
+		jsonWriterFile << jsonArray;
+		jsonWriterFile.close();
+	}
+
+	std::cout << "Finish Write";
+
+	std::ifstream jsonReadFile = std::ifstream("FrutasTest.json", std::ifstream::binary);
+	std::vector<Fruit*> readFrutas;
+
+	if (!jsonReadFile.fail())
+	{
+		Json::Value readedJson;
+
+		jsonReadFile >> readedJson;
+
+		for (Json::Value value : readedJson)
+		{
+			Fruit* f = ICodable::FromJson<Fruit>(value);
+			readFrutas.push_back(f);
+		}
+	}
+
+	while (true)
+	{
+
+	}
 }
