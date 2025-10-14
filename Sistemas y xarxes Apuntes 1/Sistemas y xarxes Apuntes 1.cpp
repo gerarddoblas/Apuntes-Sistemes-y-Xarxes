@@ -166,7 +166,7 @@
 int main()
 {
 	ICodable::SaveDecodeProcces<Banana>();
-	ICodable::SaveDecodeProcces<Banana>();
+	ICodable::SaveDecodeProcces<Apple>();
 
 	std::vector<Fruit*> frutas
 	{
